@@ -1,0 +1,49 @@
+SELECT ls.name,ls.service_id,rs.user_id FROM `rel_services` rs left join list_services ls  on rs.service_id = ls.service_id   where rs.user_id=28318
+
+TRUNCATE table `imported_users`;
+delete FROM `users_data` WHERE user_id not  in (1,2);
+alter table `users_data` auto_increment=1;
+TRUNCATE table  `list_services`;
+TRUNCATE TABLE `rel_services`;
+DELETE from `users_photo` where user_id not in (2);
+alter table `users_photo` auto_increment=1;
+
+/*
+UPDATE imported_users_count SET iucount=;
+*/
+
+SELECT ud.first_name,ud.last_name,ud.city,ud.filename,ud.token,ud.* FROM `users_data` ud where user_id=6487;
+SELECT * FROM `list_services`;
+
+
+
+
+INSERT INTO `users_data` (`user_id`, `first_name`, `last_name`, `email`, `company`, `phone_number`, `address1`, `address2`, `city`, `zip_code`, `state_code`, `state_ln`, `country_code`, `country_ln`, `website`, `twitter`, `youtube`, `facebook`, `linkedin`, `blog`, `quote`, `experience`, `affiliation`, `awards`, `about_me`, `featured`, `modtime`, `subscription_id`, `filename`, `password`, `active`, `token`, `ref_code`, `signup_date`, `cookie`, `last_login`, `position`, `instagram`, `credentials`, `bitly`, `profession_id`, `facebook_id`, `google_id`, `verified`, `pinterest`, `nationwide`, `cv`, `work_experience`, `rep_matters`, `gmap`, `listing_type`, `lat`, `lon`, `no_geo`, `user_consent`, `search_description`) VALUES
+(1, 'Sample', 'Member', 'sample@sample.com', 'Sample Member Inc.', '555-555-5555', '123 S Main St', '', 'Los Angeles', '90012', 'CA', 'California', 'US', 'United States Of America', 'http%3A%2F%2Fwww.mywebsite.com', 'http%3A%2F%2Fwww.twitter.com%2Ftwitter', '', 'http%3A%2F%2Fwww.facebook.com', 'http%3A%2F%2Fwww.linkedin.com', '', 'This is a sample listing. Think of the possibilities!', 2006, 'Cash\rVisa\rMastercard\rAmerican Express', '2022 Biggest Smile Award\r2022 Best Customer Service', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', 0, '0000-00-00 00:00:00', 1, 'california/los-angeles/top-level-category/sample-member', '$2a$11$28a5d0f12b0ea67767ad3u6x8ACx/uYv6Hw6wOekvj37yqhreyAB2', 2, 'e63e8a87d4bc89b04452284306979394', 'Manually Added', '20150704164637', 'f5945dfe74212cffc1c1be1d5d272bb8', '20210908005032', 'Co-Founder', 'http%3A%2F%2Fwww.instagram.com', 'Certified Happiness Expert\rProfessional Problem Solver', '0', 1, '', '', 0, '', 0, '', '', 'Mon - Fri 8am - 6pm\rSaturday 10 am - 4pm\rSunday Closed', '', 'Individual', '34.0520344', '-118.24387619999999', '', '', ''),
+(2, 'Sample General', 'User', 'sample2@sample.com', '', '', '123 Main St ', '', 'Seal Beach', '90740', 'CA', 'California', 'US', 'United States', '', '', NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, 0, '0000-00-00 00:00:00', 5, 'united-states/seal-beach/sample-general-user', '$2a$11$28a5d0f12b0ea67767ad3uWZCaT0kkU4liWQSBB9TPlysv3XbhWUW', 2, 'e4fbc29d2fb9cf25bbf62292dbff416f', '', '20160502132454', '', '20210831093045', '', '', '', '0', 0, '', '', 0, '', 0, '', '', '', '', 'Individual', '33.740739', '-118.10556830000002', '', '', '');
+
+
+
+http://launch29718.directoryup.com/api/widget/html/get/data_import
+
+
+1) Run the backup db scripts from bd
+drop any _bak tables 
+
+2) delete the images from /public_html/pictures/profile
+3) delete the excel file from /public_html/excel
+4) Run the new table create scripts
+5) Run the file
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SELECT * FROM  `imported_users`;
+SELECT * FROM  `users_data`;
+SELECT * FROM   `list_services`;
+SELECT * FROM  `rel_services`;
+SELECT * FROM `users_photo`;
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+

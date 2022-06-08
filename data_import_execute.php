@@ -1,6 +1,13 @@
 <?
 require_once $w['root_directory']."/excel/Classes/PHPExcel.php";
 global $w;
+error_reporting(E_ALL  );
+$base_path = $w['root_directory']."/excel/";
+$web_filename = "http://buyaproperty.in/tickets/testdata/test.xlsx";
+$local_filename=$base_path."test.xls";
+file_put_contents($local_filename, file_get_contents($web_filename));
+			
+die();			
 
 //if(isset($_POST['execute']) && ($_POST['execute']==1)) {
 if(isset($_GET['execute']) && ($_GET['execute']==1)) {	
@@ -81,9 +88,13 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	
 	try {	
 			$base_path = $w['root_directory']."/excel/";
-			$web_filename = "http://mrmoonlight.com/providerimages/fieldsforbrilliant1.xlsx";
-			$local_filename=$base_path."fieldsforbrilliant1.xls";
-			//file_put_contents($local_filename, file_get_contents($web_filename));
+			
+			//$web_filename = "http://mrmoonlight.com/providerimages/fieldsforbrilliant1.xlsx";						
+			//$local_filename=$base_path."fieldsforbrilliant1.xls";
+			
+			$web_filename = "http://buyaproperty.in/tickets/testdata/test.xlsx";
+			$local_filename=$base_path."test.xls";
+			file_put_contents($local_filename, file_get_contents($web_filename));
 	
 			$reader= PHPExcel_IOFactory::load($local_filename);
 			$d=$reader->getSheet('0')->toArray();
@@ -167,8 +178,9 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 				$insert_data = implode(",",$escaped_values);			
 				$data_rows[] = 	"(".$insert_data.")";
 				
-				if(++$i%100==0){															
-					mysql($w['database'], "insert into users_data ($columns) Values ".implode(",",$data_rows))." ON DUPLICATE KEY UPDATE ";				
+				if(++$i%100==0){						
+				echo "insert into users_data ($columns) Values ".implode(",",$data_rows);
+					mysql($w['database'], "insert into users_data ($columns) Values ".implode(",",$data_rows));				
 					$data_rows = array();				
 					//echo "Data merged successfully for  ".$i." rows <br />";					
 				}	
@@ -231,7 +243,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	//sleep(1);
 	
 		
-		$udrs2 = mysql($w['database'],"select * from users_data where user_id not in (1,2)");
+		$udrs2 = mysql($w['database'],"select * from users_data where user_id not in (1,2) and provider_id in (select provider_id from imported_users)");
 		mysqli_data_seek($udrs2,0);
 		$i = 0;
 		while($row = mysql_fetch_assoc($udrs2)) {			
@@ -321,7 +333,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	
 	//sleep(1);
 	
-	$udrs2 = mysql($w['database'],"select distinct imported_img_url from users_data where user_id not in (1,2);");
+	$udrs2 = mysql($w['database'],"select distinct imported_img_url from users_data where user_id not in (1,2) and provider_id in (select provider_id from imported_users);");
 	mysqli_data_seek($udrs2,0);
 	while($row = mysql_fetch_assoc($udrs2)) {		
 		$img_url = $row['imported_img_url'];
@@ -334,7 +346,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	//sleep(1);
 	
 	
-	$udrs2 = mysql($w['database'],"select `user_id`,`imported_img_url` from users_data where user_id not in (1,2)");
+	$udrs2 = mysql($w['database'],"select `user_id`,`imported_img_url` from users_data where user_id not in (1,2) and provider_id in (select provider_id from imported_users)");
 	mysqli_data_seek($udrs2,0);
 	$columns="user_id,file,original,type,date_added,resized";
 	$type='photo';
@@ -359,8 +371,6 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 			//echo "Data inserted successfully for ".$i." rows "."<br />";	
 		}		
 	/********************************** users_photos ************************************************/	
-	
-
 
 	echo "process finished ";
 } else {
