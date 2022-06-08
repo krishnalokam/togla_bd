@@ -27,11 +27,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	  return "'".mysql_real_escape_string($v)."'";
 	}
 	
-	function displaylog($message) {
-		//echo "<br/> ************************************************* <br/>";
-		//echo $message;
-		//echo "<br />";
-	}
+	
 	
 	function uploadImage($img_url) {
 		global $w;	
@@ -82,7 +78,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	}
 	/************************************ Fetch data from file  *****************************************/	
 	echo "process started ";	
-	displaylog("Data being fetched from file ");
+	
 	try {	
 			$base_path = $w['root_directory']."/excel/";
 			$web_filename = "http://mrmoonlight.com/providerimages/fieldsforbrilliant1.xlsx";
@@ -116,14 +112,14 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 			//echo "Data inserted successfully for  ".$tot_rows." rows <br />";	
 		}catch(Exception $e) {
 			//echo $e;
-			//print_r($e);
+			print_r($e);
 	}
 	
 		mysql($w['database'],'update imported_users_count set iucount='.$tot_rows);
-	die();
+	
 	/*************************************** Data merging **************************************************/
 	
-	displaylog("Data being merged  <br />");
+	
 	try {
 		
 		$profession_id 		= 	1;
@@ -233,7 +229,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	/******************************     file name update      *****************************************************/
 		
 	//sleep(1);
-	displaylog("Updating the slag ");
+	
 		
 		$udrs2 = mysql($w['database'],"select * from users_data where user_id not in (1,2)");
 		mysqli_data_seek($udrs2,0);
@@ -247,7 +243,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	/******************************************** list services ***********************************************************/
 	
 	//sleep(1);
-		displaylog("Updating services");
+		
 	
 		$lsrs = mysql($w['database'],"select provider_id,specialties from imported_users");
 		$rows = array();
@@ -282,7 +278,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	/******************************************** rel services ***********************************************************/	
 	
 	//sleep(1);
-	displaylog("Updating relation among services");
+	
 		$lsrs = mysql($w['database'],"select service_id,name from list_services ");
 		$i = 0;
 		$list_services = array();
@@ -324,7 +320,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	/************************************ Process Images ****************************************************************/
 	
 	//sleep(1);
-	displaylog("Processing the images");
+	
 	$udrs2 = mysql($w['database'],"select distinct imported_img_url from users_data where user_id not in (1,2);");
 	mysqli_data_seek($udrs2,0);
 	while($row = mysql_fetch_assoc($udrs2)) {		
@@ -336,7 +332,7 @@ if(isset($_GET['execute']) && ($_GET['execute']==1)) {
 	/********************************** users_photos ************************************************/
 	
 	//sleep(1);
-	displaylog("Updating users_photos");
+	
 	
 	$udrs2 = mysql($w['database'],"select `user_id`,`imported_img_url` from users_data where user_id not in (1,2)");
 	mysqli_data_seek($udrs2,0);
